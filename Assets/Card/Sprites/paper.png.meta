@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 31cf7c350e506e344afd339499464f70
+guid: a234c56051552804d9cef74640879153
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -127,7 +127,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: bow card-Sheet 1_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c3c3c535465cc148820e0d6b33739e5
+      internalID: 1085232461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow card-Sheet 1_1
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dcaef30f78851d4fa62958d2c1c3d4c
+      internalID: -1342617541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow card-Sheet 1_2
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40f57081fb660e14d9323f5b40372047
+      internalID: -101235730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow card-Sheet 1_3
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a6d294fc774f324d8d03414fa17e5cf
+      internalID: 1005971825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow card-Sheet 1_4
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe2408e90154cd643a2e472b897b9482
+      internalID: 101199676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow card-Sheet 1_5
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a0bd1aea9e9353489d6cb01d0b5af86
+      internalID: -791071236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow card-Sheet 1_6
+      rect:
+        serializedVersion: 2
+        x: 1268
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 684ecc0abe1deec41a5adebd6fc9e1ef
+      internalID: 939805494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow card-Sheet 1_7
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 0
+        width: 128
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 157102c49ec395340b6893b0ea7ec676
+      internalID: 345348330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +306,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bow card-Sheet 1_0: 1085232461
+      bow card-Sheet 1_1: -1342617541
+      bow card-Sheet 1_2: -101235730
+      bow card-Sheet 1_3: 1005971825
+      bow card-Sheet 1_4: 101199676
+      bow card-Sheet 1_5: -791071236
+      bow card-Sheet 1_6: 939805494
+      bow card-Sheet 1_7: 345348330
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
