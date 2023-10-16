@@ -409,6 +409,16 @@ public class CardGameManager : MonoBehaviour
         }
 
     }
+
+    //void CompDiscard()
+    //{
+    //    for (int i = 0; i < computerHand.Count; i++)
+    //    {
+    //        GameObject card = computerHand[i];
+    //        card.GetComponent<SpriteRenderer>().sortingLayer = i;
+    //        card.targetPos = new Vector2(discardPos.x, discardPos.y + staggerAmount * i);
+    //    }
+    //}
     void Win()
     {
         source.PlayOneShot(win);
