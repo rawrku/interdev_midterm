@@ -25,6 +25,8 @@ public class CardGameManager : MonoBehaviour
     public Transform discardPile;
     public static List<GameObject> discardDeck = new List<GameObject>();
     public Transform deckPos;
+    private Vector2 discardPos;
+    private float staggerAmmount = 4f;
 
     //player hand vars
     public List<GameObject> playerHand = new List<GameObject>();
@@ -66,6 +68,8 @@ public class CardGameManager : MonoBehaviour
 
         scoreMan = GetComponent<Score>();
         card = GetComponent<Card>();
+
+        discardPos = discardPile.transform.position;
     }
 
     private void FixedUpdate()
@@ -185,7 +189,8 @@ public class CardGameManager : MonoBehaviour
                         if (computerHand[i] == compPlayed)
                         {
                             GameObject card = computerHand[i];
-                            Vector3 newPos = discardPile.transform.position;
+                            card.GetComponent<SpriteRenderer>().sortingOrder = i;
+                            Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
                             card.GetComponent<Card>().SetTargetPos(newPos);
                             computerHand.Remove(card);
                             discardDeck.Add(card);
@@ -202,7 +207,8 @@ public class CardGameManager : MonoBehaviour
                         {
                             // add to discard pile and remove from hand
                             GameObject card = playerHand[i];
-                            Vector3 newPos = discardPile.transform.position;
+                            card.GetComponent<SpriteRenderer>().sortingOrder = i;
+                            Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
                             card.GetComponent<Card>().SetTargetPos(newPos);
                             playerHand.Remove(card);
                             discardDeck.Add(card);
@@ -213,52 +219,69 @@ public class CardGameManager : MonoBehaviour
                 //15 sec later, if opponent hand has 2 cards
                 if (timer <= -150 && computerHand.Count == 2)
                 {
-                    //reveal card
-                    computerHand[0].GetComponent<Card>().FlipCards();
-                    // add to discard pile and remove from hand
-                    GameObject card = computerHand[0];
-                    Vector3 newPos = discardPile.transform.position;
-                    card.GetComponent<Card>().SetTargetPos(newPos);
-                    computerHand.Remove(card);
-                    discardDeck.Add(card);
-                    source.PlayOneShot(place);
+                    for (var i = 0; i < computerHand.Count; i++)
+                    {
+                        //reveal card
+                        computerHand[i].GetComponent<Card>().FlipCards();
+                        // add to discard pile and remove from hand
+                        GameObject card = computerHand[i];
+                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
+                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<Card>().SetTargetPos(newPos);
+                        computerHand.Remove(card);
+                        discardDeck.Add(card);
+                        source.PlayOneShot(place);
+                    }
+                    
                 }
 
                 if (timer <= -130 && computerHand.Count == 1)
                 {
-                    //reveal card
-                    computerHand[0].GetComponent<Card>().FlipCards();
-                    // add to discard pile and remove from hand
-                    GameObject card = computerHand[0];
-                    Vector3 newPos = discardPile.transform.position;
-                    card.GetComponent<Card>().SetTargetPos(newPos);
-                    computerHand.Remove(card);
-                    discardDeck.Add(card);
+                    for (var i = 0; i < computerHand.Count; i++)
+                    {
+                        //reveal card
+                        computerHand[i].GetComponent<Card>().FlipCards();
+                        // add to discard pile and remove from hand
+                        GameObject card = computerHand[i];
+                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
+                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<Card>().SetTargetPos(newPos);
+                        computerHand.Remove(card);
+                        discardDeck.Add(card);
+                        source.PlayOneShot(place);
+                    }
                 }
 
                 //15 sec later, if player hand has 2 cards
                 if (timer <= -145 && playerHand.Count == 2)
                 {
-
-                    // add to discard pile and remove from hand
-                    GameObject card = playerHand[0];
-                    Vector3 newPos = discardPile.transform.position;
-                    card.GetComponent<Card>().SetTargetPos(newPos);
-                    playerHand.Remove(card);
-                    discardDeck.Add(card);
-                    source.PlayOneShot(place);
+                    for (var i = 0; i < playerHand.Count; i++)
+                    {
+                        // add to discard pile and remove from hand
+                        GameObject card = playerHand[i];
+                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
+                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<Card>().SetTargetPos(newPos);
+                        playerHand.Remove(card);
+                        discardDeck.Add(card);
+                        source.PlayOneShot(place);
+                    }
                 }
 
                 //15 sec later, if player hand has 1 card
                 if (timer <= -160 && playerHand.Count == 1)
                 {
-                    // add to discard pile and remove from hand
-                    GameObject card = playerHand[0];
-                    Vector3 newPos = discardPile.transform.position;
-                    card.GetComponent<Card>().SetTargetPos(newPos);
-                    playerHand.Remove(card);
-                    discardDeck.Add(card);
-                    source.PlayOneShot(place);
+                    for (var i = 0; i < playerHand.Count; i++)
+                    {
+                        // add to discard pile and remove from hand
+                        GameObject card = playerHand[i];
+                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
+                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<Card>().SetTargetPos(newPos);
+                        playerHand.Remove(card);
+                        discardDeck.Add(card);
+                        source.PlayOneShot(place);
+                    }
                 }
 
                 if (timer <= -175)
@@ -409,16 +432,6 @@ public class CardGameManager : MonoBehaviour
         }
 
     }
-
-    //void CompDiscard()
-    //{
-    //    for (int i = 0; i < computerHand.Count; i++)
-    //    {
-    //        GameObject card = computerHand[i];
-    //        card.GetComponent<SpriteRenderer>().sortingLayer = i;
-    //        card.targetPos = new Vector2(discardPos.x, discardPos.y + staggerAmount * i);
-    //    }
-    //}
     void Win()
     {
         source.PlayOneShot(win);

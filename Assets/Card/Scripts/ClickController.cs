@@ -20,7 +20,7 @@ public class ClickController : MonoBehaviour
     {
         // click left mouse button to turn particles on
         // and place themm at mouse pos
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             particles.Play();
