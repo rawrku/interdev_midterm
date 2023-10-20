@@ -26,7 +26,7 @@ public class CardGameManager : MonoBehaviour
     public static List<GameObject> discardDeck = new List<GameObject>();
     public Transform deckPos;
     private Vector2 discardPos;
-    private float staggerAmmount = 4f;
+    private float discardPileSpacing = 0.05f; // Adjust this value to control spacing between cards in the discard pile
 
     //player hand vars
     public List<GameObject> playerHand = new List<GameObject>();
@@ -189,8 +189,8 @@ public class CardGameManager : MonoBehaviour
                         if (computerHand[i] == compPlayed)
                         {
                             GameObject card = computerHand[i];
-                            card.GetComponent<SpriteRenderer>().sortingOrder = i;
-                            Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                            card.GetComponent<SpriteRenderer>().sortingOrder = discardDeck.Count;
+                            Vector2 newPos = discardPos + new Vector2(0, discardDeck.Count * discardPileSpacing);
                             card.GetComponent<Card>().SetTargetPos(newPos);
                             computerHand.Remove(card);
                             discardDeck.Add(card);
@@ -207,8 +207,8 @@ public class CardGameManager : MonoBehaviour
                         {
                             // add to discard pile and remove from hand
                             GameObject card = playerHand[i];
-                            card.GetComponent<SpriteRenderer>().sortingOrder = i;
-                            Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                            card.GetComponent<SpriteRenderer>().sortingOrder = discardDeck.Count;
+                            Vector2 newPos = discardPos + new Vector2(0, discardDeck.Count * discardPileSpacing);
                             card.GetComponent<Card>().SetTargetPos(newPos);
                             playerHand.Remove(card);
                             discardDeck.Add(card);
@@ -225,8 +225,8 @@ public class CardGameManager : MonoBehaviour
                         computerHand[i].GetComponent<Card>().FlipCards();
                         // add to discard pile and remove from hand
                         GameObject card = computerHand[i];
-                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
-                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<SpriteRenderer>().sortingOrder = discardDeck.Count;
+                        Vector2 newPos = discardPos + new Vector2(0, discardDeck.Count * discardPileSpacing);
                         card.GetComponent<Card>().SetTargetPos(newPos);
                         computerHand.Remove(card);
                         discardDeck.Add(card);
@@ -243,8 +243,8 @@ public class CardGameManager : MonoBehaviour
                         computerHand[i].GetComponent<Card>().FlipCards();
                         // add to discard pile and remove from hand
                         GameObject card = computerHand[i];
-                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
-                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<SpriteRenderer>().sortingOrder = discardDeck.Count;
+                        Vector2 newPos = discardPos + new Vector2(0, discardDeck.Count * discardPileSpacing);
                         card.GetComponent<Card>().SetTargetPos(newPos);
                         computerHand.Remove(card);
                         discardDeck.Add(card);
@@ -259,8 +259,8 @@ public class CardGameManager : MonoBehaviour
                     {
                         // add to discard pile and remove from hand
                         GameObject card = playerHand[i];
-                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
-                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<SpriteRenderer>().sortingOrder = discardDeck.Count;
+                        Vector2 newPos = discardPos + new Vector2(0, discardDeck.Count * discardPileSpacing);
                         card.GetComponent<Card>().SetTargetPos(newPos);
                         playerHand.Remove(card);
                         discardDeck.Add(card);
@@ -275,8 +275,8 @@ public class CardGameManager : MonoBehaviour
                     {
                         // add to discard pile and remove from hand
                         GameObject card = playerHand[i];
-                        card.GetComponent<SpriteRenderer>().sortingOrder = i;
-                        Vector2 newPos = new Vector2(discardPos.x, discardPos.y + staggerAmmount * i);
+                        card.GetComponent<SpriteRenderer>().sortingOrder = discardDeck.Count;
+                        Vector2 newPos = discardPos + new Vector2(0, discardDeck.Count * discardPileSpacing);
                         card.GetComponent<Card>().SetTargetPos(newPos);
                         playerHand.Remove(card);
                         discardDeck.Add(card);
