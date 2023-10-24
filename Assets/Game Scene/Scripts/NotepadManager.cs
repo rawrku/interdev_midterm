@@ -36,7 +36,7 @@ public class NotepadManager : MonoBehaviour
         if (objectives.Count > 0)
         {
             // Apply a strikethrough style to the completed objective
-            objectives[0] = "<s>" + objectives[0] + "</s>";
+            objectives[0] = "<mark=#FF0000aa>" + objectives[0] + "</mark>";
 
             // Update the notepad display
             UpdateNotepadText();

@@ -18,6 +18,13 @@ public class DialogueManager : MonoBehaviour
     private bool isDialogueCompleted;
     private bool canAdvanceDialogue;
 
+    private float typingSpeed = 25f;
+    private bool isTyping;
+    private bool instantDisplay; // To check if text should be displayed instantly
+
+    private string currentPlayerDialogue;
+    private string currentNpcDialogue;
+
     private void Start()
     {
         // Enqueue player and NPC dialogues
@@ -29,28 +36,31 @@ public class DialogueManager : MonoBehaviour
         npcDialogues.Enqueue("Why don't we play a game of cards. If you win, I'll tell you what you want.");
         npcDialogues.Enqueue("Well, let's just say Oshawott won't be so much of a problem anymore...");
 
-        isPlayerSpeaking = true; // Player speaks first
-        canAdvanceDialogue = true; // Allow the player to advance the dialogue
+        isPlayerSpeaking = true;
+        canAdvanceDialogue = true;
         DisplayNextDialogue();
     }
 
     private void Update()
     {
-        // Check for player input to advance dialogues (by pressing Space)
-        if (canAdvanceDialogue && Input.GetKeyDown(KeyCode.Space))
+        if (isDialogueCompleted)
         {
-            DisplayNextDialogue();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                LoadNextScene();
+            }
         }
-
-        // Check if all dialogues are completed, and load the scene
-        if (!canAdvanceDialogue)
+        else if (canAdvanceDialogue && Input.GetKeyDown(KeyCode.Space))
         {
-            LoadNextScene();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            LoadNextScene();
+            if (isTyping)
+            {
+                // Skip typing and display text instantly
+                instantDisplay = true;
+            }
+            else
+            {
+                DisplayNextDialogue();
+            }
         }
     }
 
@@ -58,35 +68,51 @@ public class DialogueManager : MonoBehaviour
     {
         if (isDialogueCompleted)
         {
-            return; // All dialogues are completed, no need to proceed
+            return;
         }
 
-        // Check if there are more dialogues to show
         if (playerDialogues.Count > 0 || npcDialogues.Count > 0)
         {
-            string currentDialogue = isPlayerSpeaking ? playerDialogues.Dequeue() : npcDialogues.Dequeue();
-
             if (isPlayerSpeaking)
             {
-                playerDialogueText.text = currentDialogue;
+                currentPlayerDialogue = playerDialogues.Dequeue();
+                StartCoroutine(TypeDialogue(playerDialogueText, currentPlayerDialogue));
             }
             else
             {
-                npcDialogueText.text = currentDialogue;
+                currentNpcDialogue = npcDialogues.Dequeue();
+                StartCoroutine(TypeDialogue(npcDialogueText, currentNpcDialogue));
             }
 
             isPlayerSpeaking = !isPlayerSpeaking;
         }
         else
         {
-            // All dialogues for this cycle are done
             canAdvanceDialogue = false;
             isDialogueCompleted = true;
         }
     }
 
+    private IEnumerator TypeDialogue(TMP_Text textComponent, string dialogue)
+    {
+        isTyping = true;
+        textComponent.text = "";
+        foreach (char letter in dialogue)
+        {
+            if (instantDisplay)
+            {
+                textComponent.text = dialogue; // Display text instantly
+                instantDisplay = false;
+                break;
+            }
+            textComponent.text += letter;
+            yield return new WaitForSeconds(1 / typingSpeed);
+        }
+        isTyping = false;
+    }
+
     private void LoadNextScene()
     {
-        SceneManager.LoadScene("CardGame"); // Load the next scene
+        SceneManager.LoadScene("CardGame");
     }
 }
