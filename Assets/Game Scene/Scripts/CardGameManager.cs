@@ -52,8 +52,11 @@ public class CardGameManager : MonoBehaviour
 
     //eval vars
     bool eval;
+
+
     public Score scoreMan;
     public Card card;
+    public DeckManager deckMan;
 
     // audio vars
     public AudioSource source;
@@ -68,6 +71,7 @@ public class CardGameManager : MonoBehaviour
 
         scoreMan = GetComponent<Score>();
         card = GetComponent<Card>();
+        deckMan = GetComponent<DeckManager>();
 
         discardPos = discardPile.transform.position;
     }
@@ -77,6 +81,7 @@ public class CardGameManager : MonoBehaviour
         switch (state)
         {
             case GameState.COMPDEAL:
+                //deckMan.ShuffleDeck();
                 // re-setting the eval varaible to false so it can eval again after a shuffle
                 eval = false;
                 timer--;
@@ -353,25 +358,26 @@ public class CardGameManager : MonoBehaviour
 
     void CompDealCard()
     {
-        //copmuter cards
-        GameObject nextCard = DeckManager.deck[DeckManager.deck.Count - 1];
+        // Computer cards
+        GameObject nextCard = DeckManager.deck[0]; // Select the top card
+        Debug.Log("card" + DeckManager.deck[0].ToString());
         Vector3 newPos = computerPos.transform.position;
         newPos.x = newPos.x + (2f * computerHand.Count);
         nextCard.GetComponent<Card>().SetTargetPos(newPos);
         computerHand.Add(nextCard);
         source.PlayOneShot(place);
-        DeckManager.deck.Remove(nextCard);
+        DeckManager.deck.RemoveAt(0); // Remove the top card from the deck
     }
     void PlayerDealCard()
     {
-        //player cards
-        GameObject nextCard = DeckManager.deck[DeckManager.deck.Count - 1];
+        // Player cards
+        GameObject nextCard = DeckManager.deck[0]; // Select the top card
         Vector3 newPos = playerPos.transform.position;
         newPos.x = newPos.x + (2f * playerHand.Count);
         nextCard.GetComponent<Card>().SetTargetPos(newPos);
         playerHand.Add(nextCard);
         source.PlayOneShot(place);
-        DeckManager.deck.Remove(nextCard);
+        DeckManager.deck.RemoveAt(0); // Remove the top card from the deck
     }
 
     void CompChooseCard()

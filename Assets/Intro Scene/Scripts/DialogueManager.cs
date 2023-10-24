@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
-
-    // this code is taken from many many youtbe videos and so thats why it does not look like how i normally code.
-
+    // i had to follow a lot of youtube videos for this code so thats why it doesnt look like my normal code
 
     public TMP_Text playerDialogueText;
     public TMP_Text npcDialogueText;
@@ -18,7 +16,7 @@ public class DialogueManager : MonoBehaviour
 
     private bool isPlayerSpeaking;
     private bool isDialogueCompleted;
-    private bool canAdvanceDialogue; // Flag to control dialogue advancement
+    private bool canAdvanceDialogue;
 
     private void Start()
     {
@@ -43,14 +41,19 @@ public class DialogueManager : MonoBehaviour
         {
             DisplayNextDialogue();
         }
+
+        // Check if all dialogues are completed, and load the scene
+        if (!canAdvanceDialogue)
+        {
+            LoadNextScene();
+        }
     }
 
     private void DisplayNextDialogue()
     {
         if (isDialogueCompleted)
         {
-            LoadNextScene(); // All dialogues are completed, load the scene
-            return;
+            return; // All dialogues are completed, no need to proceed
         }
 
         // Check if there are more dialogues to show
