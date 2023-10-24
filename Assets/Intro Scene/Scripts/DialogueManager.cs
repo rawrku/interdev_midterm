@@ -47,6 +47,11 @@ public class DialogueManager : MonoBehaviour
         {
             LoadNextScene();
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            LoadNextScene();
+        }
     }
 
     private void DisplayNextDialogue()
