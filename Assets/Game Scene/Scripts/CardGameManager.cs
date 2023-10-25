@@ -78,7 +78,7 @@ public class CardGameManager : MonoBehaviour
 
         scoreMan = GetComponent<Score>();
         card = GetComponent<Card>();
-        deckMan = GetComponent<DeckManager>();
+        deckMan = FindObjectOfType<DeckManager>();
 
         discardPos = discardPile.transform.position;
     }
@@ -328,13 +328,13 @@ public class CardGameManager : MonoBehaviour
                 {
                     if (timer < 0 - i * 2)
                     {
-                        // flipping the cards to be the back
+                        // Flipping the cards to be the back
                         discardDeck[i].GetComponent<Card>().CardBacks();
 
-                        // mmoving the cards to the place where the deck is
+                        // Moving the cards to the place where the deck is
                         Vector3 newPos = deckPos.transform.position;
+                        newPos.y += i * discardPileSpacing; // Adjust the Y position for spacing
                         discardDeck[i].GetComponent<Card>().SetTargetPos(newPos);
-
                     }
 
                     if (timer < -90 - i)
@@ -349,9 +349,6 @@ public class CardGameManager : MonoBehaviour
                         GameObject card = discardDeck[i];
                         DeckManager.deck.Add(card);
                         discardDeck.Remove(card);
-                        Vector3 cardPosition = card.transform.position;
-                        cardPosition.y += i * deckMan.cardSpacing;
-                        card.transform.position = cardPosition;
                     }
                 }
                 // if the deck has 24 cards
@@ -369,27 +366,33 @@ public class CardGameManager : MonoBehaviour
 
     void CompDealCard()
     {
-        // Computer cards
-        GameObject nextCard = DeckManager.deck[0]; // Select the top card
-        Vector3 newPos = computerPos.transform.position;
-        newPos.x = newPos.x + (2f * computerHand.Count);
-        handHoverEffect.HoverOverCard(nextCard);
-        nextCard.GetComponent<Card>().SetTargetPos(newPos);
-        computerHand.Add(nextCard);
-        source.PlayOneShot(place);
-        DeckManager.deck.RemoveAt(0); // Remove the top card from the deck
+        if (DeckManager.deck.Count > 0)
+        {
+            // Computer cards
+            GameObject nextCard = DeckManager.deck[0]; // Select the top card
+            Vector3 newPos = computerPos.transform.position;
+            newPos.x = newPos.x + (2f * computerHand.Count);
+            handHoverEffect.HoverOverCard(nextCard);
+            nextCard.GetComponent<Card>().SetTargetPos(newPos);
+            computerHand.Add(nextCard);
+            source.PlayOneShot(place);
+            DeckManager.deck.RemoveAt(0); // Remove the top card from the deck
+        }
     }
+
     void PlayerDealCard()
     {
-        // Player cards
-        GameObject nextCard = DeckManager.deck[0]; // Select the top card
-        Vector3 newPos = playerPos.transform.position;
-        newPos.x = newPos.x + (2f * playerHand.Count);
-        nextCard.GetComponent<Card>().SetTargetPos(newPos);
-        playerHand.Add(nextCard);
-        source.PlayOneShot(place);
-        DeckManager.deck.RemoveAt(0); // Remove the top card from the deck
-
+        if (DeckManager.deck.Count > 0)
+        {
+            // Player cards
+            GameObject nextCard = DeckManager.deck[0]; // Select the top card
+            Vector3 newPos = playerPos.transform.position;
+            newPos.x = newPos.x + (2f * playerHand.Count);
+            nextCard.GetComponent<Card>().SetTargetPos(newPos);
+            playerHand.Add(nextCard);
+            source.PlayOneShot(place);
+            DeckManager.deck.RemoveAt(0); // Remove the top card from the deck
+        }
     }
 
     void CompChooseCard()
@@ -468,5 +471,26 @@ public class CardGameManager : MonoBehaviour
         scoreMan.AddCompPoint();
         state = GameState.DISCARD;
     }
+    void ShuffleDiscardDeck()
+    {
+        source.PlayOneShot(shuffle);
 
+        int cardCount = discardDeck.Count;
+        for (int i = 0; i < cardCount; i++)
+        {
+            int randomIndex = Random.Range(0, discardDeck.Count);
+            GameObject card = discardDeck[randomIndex];
+            discardDeck.RemoveAt(randomIndex);
+
+            // Re-position the card to the deck position with proper spacing
+            Vector3 cardPosition = deckPos.transform.position;
+            cardPosition.y += i * discardPileSpacing;
+            card.transform.position = cardPosition;
+
+            // Add it back to the deck
+            DeckManager.deck.Add(card);
+        }
+
+        state = GameState.COMPDEAL;
+    }
 }

@@ -25,11 +25,16 @@ public class DialogueManager : MonoBehaviour
     private string currentPlayerDialogue;
     private string currentNpcDialogue;
 
+    [Header("AUDIO")]
+    public AudioSource source;
+    public AudioClip cofTalk;
+    public AudioClip pikaTalk;
+
     private void Start()
     {
         // Enqueue player and NPC dialogues
-        playerDialogues.Enqueue("Well, Well, Well, we meet again Cofagrigus");
-        playerDialogues.Enqueue("Let me cut to the chase, where is Oshawott");
+        playerDialogues.Enqueue("Well, Well, Well, we meet again Cofagrigus.");
+        playerDialogues.Enqueue("Let me cut to the chase, where is Oshawott?");
         playerDialogues.Enqueue("And if I lose?");
 
         npcDialogues.Enqueue("Hello, Detective Pikachu.");
@@ -75,11 +80,13 @@ public class DialogueManager : MonoBehaviour
         {
             if (isPlayerSpeaking)
             {
+                source.PlayOneShot(pikaTalk);
                 currentPlayerDialogue = playerDialogues.Dequeue();
                 StartCoroutine(TypeDialogue(playerDialogueText, currentPlayerDialogue));
             }
             else
             {
+                source.PlayOneShot(cofTalk);
                 currentNpcDialogue = npcDialogues.Dequeue();
                 StartCoroutine(TypeDialogue(npcDialogueText, currentNpcDialogue));
             }
@@ -109,6 +116,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(1 / typingSpeed);
         }
         isTyping = false;
+        source.Stop();
     }
 
     private void LoadNextScene()

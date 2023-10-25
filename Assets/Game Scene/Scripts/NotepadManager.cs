@@ -32,10 +32,26 @@ public class NotepadManager : MonoBehaviour
 
     public void CrossOutObjective()
     {
-        if (objectives.Count > 0)
+        if (FindObjectOfType<Score>().playerScore == 1)
         {
             // Apply a strikethrough style to the completed objective
             objectives[0] = "<mark=#FF0000aa>" + objectives[0] + "</mark>";
+
+            // Update the notepad display
+            UpdateNotepadText();
+        }
+        if (FindObjectOfType<Score>().playerScore == 2)
+        {
+            // Apply a strikethrough style to the completed objective
+            objectives[1] = "<mark=#FF0000aa>" + objectives[1] + "</mark>";
+
+            // Update the notepad display
+            UpdateNotepadText();
+        }
+        if (FindObjectOfType<Score>().playerScore == 3)
+        {
+            // Apply a strikethrough style to the completed objective
+            objectives[2] = "<mark=#FF0000aa>" + objectives[2] + "</mark>";
 
             // Update the notepad display
             UpdateNotepadText();
