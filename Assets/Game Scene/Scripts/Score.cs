@@ -11,8 +11,8 @@ public class Score : MonoBehaviour
     public NotepadManager notepadManager; 
     public NPC npc; 
 
-    private int playerScore;
-    private int compScore;
+    public int playerScore;
+    public int compScore;
 
     // Start is called before the first frame update
     void Start()

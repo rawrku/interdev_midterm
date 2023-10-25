@@ -11,20 +11,26 @@ public class NPC : MonoBehaviour
 
     private bool hasSpoken = false; // To prevent repeated dialogue
 
+    private int pScore;
+
+    private float timer;
+
+    // Array of pre-written dialogue lines when the NPC gains a point
+    private string[] gainPointDialogues = {
+        "Nice try",
+        "My lips are sealed",
+        "Better luck next time...",
+        "Looks like Oshawott is not going home...",
+        "Oh man, this is looking bad for you..."
+    };
+
     private void Start()
     {
+        pScore = FindObjectOfType<Score>().playerScore;
+
         if (dialogueBox != null)
         {
             dialogueBox.SetActive(false); // Initially, hide the dialogue box
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && !hasSpoken)
-        {
-            hasSpoken = true;
-            ShowDialogue("Hello, I have something to say...");
         }
     }
 
@@ -50,17 +56,49 @@ public class NPC : MonoBehaviour
     // Called when the player interacts with the NPC
     public void Interact()
     {
+        timer++;
+
         if (notepadManager != null)
         {
-            notepadManager.CrossOutObjective();
-            ShowDialogue("I am blah blah");
-            //HideDialogue(); // Hide the dialogue box after the interaction
+
+            if (pScore == 1)
+            {
+                ShowDialogue("The hideout is in the cave.");
+                notepadManager.CrossOutObjective();
+            }
+            if (pScore == 2)
+            {
+                ShowDialogue("Oshawott is being used for information about your agency.");
+                notepadManager.CrossOutObjective();
+            }
+            else if (pScore == 3)
+            {
+                ShowDialogue("The boss is Spiritomb.");
+                notepadManager.CrossOutObjective();
+            }
+
+            if (timer >= 15f)
+            {
+                HideDialogue();
+            }
         }
     }
 
     // Called when the NPC gains a point
     public void OnNPCGainPoint()
     {
-        ShowDialogue("NPC gained a point!");
+        timer++;
+
+        if (gainPointDialogues.Length > 0)
+        {
+            // Randomly select a dialogue from the array
+            int randomIndex = Random.Range(0, gainPointDialogues.Length);
+            ShowDialogue(gainPointDialogues[randomIndex]);
+        }
+
+        if (timer >= 15f)
+        {
+            HideDialogue();
+        }
     }
 }

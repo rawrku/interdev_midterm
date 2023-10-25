@@ -22,6 +22,7 @@ public class CardGameManager : MonoBehaviour
     public static GameState state;
 
     //discrad pile and shuffling vars
+    [Header("DISCARD PILE AND SHUFFLING")]
     public Transform discardPile;
     public static List<GameObject> discardDeck = new List<GameObject>();
     public Transform deckPos;
@@ -29,6 +30,7 @@ public class CardGameManager : MonoBehaviour
     private float discardPileSpacing = 0.05f; // Adjust this value to control spacing between cards in the discard pile
 
     //player hand vars
+    [Header("PLAYER HAND")]
     public List<GameObject> playerHand = new List<GameObject>();
     public int playerHandCount;
     public Transform playerPos;
@@ -36,6 +38,7 @@ public class CardGameManager : MonoBehaviour
     GameObject playerPlayed;
 
     //copmuter hand vars
+    [Header("COMPUTER HAND")]
     public List<GameObject> computerHand = new List<GameObject>();
     public int computerHandCount;
     public Transform computerPos;
@@ -43,6 +46,7 @@ public class CardGameManager : MonoBehaviour
     GameObject compPlayed;
 
     //timer vars
+    [Header("TIMERS")]
     int maxTimer = 20;
     int timer = 20;
     int revealTimer;
@@ -53,12 +57,15 @@ public class CardGameManager : MonoBehaviour
     //eval vars
     bool eval;
 
-
+    //getting scripts
+    [Header("SCRIPTS")]
     public Score scoreMan;
     public Card card;
     public DeckManager deckMan;
+    public CardHoverEffect handHoverEffect;
 
     // audio vars
+    [Header("AUDIO")]
     public AudioSource source;
     public AudioClip win;
     public AudioClip loose;
@@ -171,6 +178,7 @@ public class CardGameManager : MonoBehaviour
                         // if the card in the comp hand was the played card
                         if (computerHand[i] == compPlayed)
                         {
+                            handHoverEffect.ResetHoverSprite();
                             // reveal the face
                             computerHand[i].GetComponent<Card>().FlipCards();
 
@@ -331,16 +339,19 @@ public class CardGameManager : MonoBehaviour
 
                     if (timer < -90 - i)
                     {
-                        // shuffling the discard deck
+                        // Shuffling the discard deck
                         GameObject temp = discardDeck[i];
                         int randomIndex = Random.Range(i, discardDeck.Count);
                         discardDeck[i] = discardDeck[randomIndex];
                         discardDeck[randomIndex] = temp;
 
-                        // adding it back to the deck
+                        // Adding it back to the deck
                         GameObject card = discardDeck[i];
                         DeckManager.deck.Add(card);
                         discardDeck.Remove(card);
+                        Vector3 cardPosition = card.transform.position;
+                        cardPosition.y += i * deckMan.cardSpacing;
+                        card.transform.position = cardPosition;
                     }
                 }
                 // if the deck has 24 cards
@@ -360,9 +371,9 @@ public class CardGameManager : MonoBehaviour
     {
         // Computer cards
         GameObject nextCard = DeckManager.deck[0]; // Select the top card
-        Debug.Log("card" + DeckManager.deck[0].ToString());
         Vector3 newPos = computerPos.transform.position;
         newPos.x = newPos.x + (2f * computerHand.Count);
+        handHoverEffect.HoverOverCard(nextCard);
         nextCard.GetComponent<Card>().SetTargetPos(newPos);
         computerHand.Add(nextCard);
         source.PlayOneShot(place);
@@ -378,12 +389,14 @@ public class CardGameManager : MonoBehaviour
         playerHand.Add(nextCard);
         source.PlayOneShot(place);
         DeckManager.deck.RemoveAt(0); // Remove the top card from the deck
+
     }
 
     void CompChooseCard()
     {
         GameObject randomCard = computerHand[Random.Range(0, 2)];
         Vector3 newPos = compCard.transform.position;
+        handHoverEffect.HoverOverCard(randomCard);
         randomCard.GetComponent<Card>().SetTargetPos(newPos);
         source.PlayOneShot(place);
         compPlayed = randomCard;
@@ -446,6 +459,7 @@ public class CardGameManager : MonoBehaviour
     }
     void Tie()
     {
+        FindObjectOfType<NPC>().OnNPCGainPoint();
         state = GameState.DISCARD;
     }
     void Loose()
@@ -454,4 +468,5 @@ public class CardGameManager : MonoBehaviour
         scoreMan.AddCompPoint();
         state = GameState.DISCARD;
     }
+
 }

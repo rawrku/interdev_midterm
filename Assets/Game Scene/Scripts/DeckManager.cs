@@ -57,48 +57,4 @@ public class DeckManager : MonoBehaviour
         }
 
     }
-
-    //public void ShuffleDeck()
-    //{
-    //    // Create a list of shuffled indices
-    //    List<int> shuffledIndices = new List<int>();
-    //    for (int i = 0; i < deckCount; i++)
-    //    {
-    //        shuffledIndices.Add(i);
-    //    }
-
-    //    // Fisher-Yates shuffle the indices
-    //    for (int i = shuffledIndices.Count - 1; i > 0; i--)
-    //    {
-    //        int randomIndex = Random.Range(0, i + 1);
-    //        int temp = shuffledIndices[i];
-    //        shuffledIndices[i] = shuffledIndices[randomIndex];
-    //        shuffledIndices[randomIndex] = temp;
-    //    }
-
-    //    // Clear the current deck
-    //    deck.Clear();
-
-    //    // Rebuild the deck based on the shuffled indices
-    //    for (int i = 0; i < shuffledIndices.Count; i++)
-    //    {
-    //        GameObject newCard = Instantiate(cardPrefab, gameObject.transform);
-    //        Card newCardScript = newCard.GetComponent<Card>();
-    //        newCardScript.faceSprite = cardFaces[i];
-    //        deck.Add(newCard);
-
-    //        if (i < 8)
-    //        {
-    //            newCardScript.cardValue = Card.CardValues.ROCK;
-    //        }
-    //        else if (i < 16)
-    //        {
-    //            newCardScript.cardValue = Card.CardValues.PAPER;
-    //        }
-    //        else
-    //        {
-    //            newCardScript.cardValue = Card.CardValues.SCISSORS;
-    //        }
-    //    }
-    //}
 }

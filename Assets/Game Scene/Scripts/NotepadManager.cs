@@ -13,10 +13,9 @@ public class NotepadManager : MonoBehaviour
     private void Start()
     {
         // Initialize the objectives when the game starts
-        objectives.Add("Find Out Who This is");
-        objectives.Add("Find Out Where the Hideout is");
-        objectives.Add("Find Out What they are doing with Oshawott");
-        objectives.Add("Find Out Who the Boss is");
+        objectives.Add("Find Out where the hideout is");
+        objectives.Add("Find Out what they are doing with Oshawott");
+        objectives.Add("Find Out who the boss is");
 
         // Update the notepad display
         UpdateNotepadText();
