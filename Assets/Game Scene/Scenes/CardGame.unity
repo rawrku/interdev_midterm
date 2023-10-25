@@ -5913,7 +5913,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243372103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.9167, y: 3.9707, z: 0}
+  m_LocalPosition: {x: 5.9167, y: 3.9707, z: 3.88}
   m_LocalScale: {x: 3.8688557, y: 2.1946611, z: 2.4612}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6614,7 +6614,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customCursor: {fileID: 2800000, guid: cf9859022db7864409a935a8b9273ffc, type: 3}
-  cursorHotspot: {x: 0, y: 0}
+  cursorMode: 0
+  hotSpot: {x: 0, y: 0}
 --- !u!4 &1844764461
 Transform:
   m_ObjectHideFlags: 0
