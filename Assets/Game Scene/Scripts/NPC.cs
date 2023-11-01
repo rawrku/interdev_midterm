@@ -71,7 +71,7 @@ public class NPC : MonoBehaviour
             {
                 StartCoroutine(ShowDialogueWithTyping("The boss is Spiritomb."));
                 notepadManager.CrossOutObjective();
-                Invoke("LoadEndScene", 2f); // Load the end scene after 2 seconds
+                Invoke("LoadEndScene", 3.5f); // Load the end scene after 2 seconds
             }
         }
     }
